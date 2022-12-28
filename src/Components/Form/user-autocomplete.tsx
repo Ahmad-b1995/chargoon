@@ -1,28 +1,42 @@
-import { AutoComplete, Button } from 'antd';
-import React, { useEffect, useRef, useState } from 'react';
-import { getUsers } from '../../transportLayer';
+import { AutoComplete, Button } from "antd";
+import React, { useEffect, useRef, useState } from "react";
+import { getUsers } from "../../transportLayer";
+import { UserType } from "../../types";
+import UserTable from "./user-table";
 
+interface Props {
+  handleFormChange: (key: string, value: string | any[]) => void;
+}
 
-const UserAutoComplete: React.FC = () => {
+const UserAutoComplete: React.FC<Props> = ({ handleFormChange }) => {
   const orginalOptions = useRef([]);
-  const [options, setOptions] = useState<{ label: string; value: string }[]>([]);
+  const [options, setOptions] = useState<{ label: string; value: string }[]>(
+    []
+  );
+  const [selectedUser, setSelectedUser] = useState<string>();
+  const [userList, setUserList] = useState<UserType[]>([]);
 
   useEffect(() => {
     getUsers().then((users) => {
       orginalOptions.current = users;
       setOptions(users);
-    })
+    });
   }, []);
-
 
   const onSearch = (searchText: string) => {
     setOptions(
-      orginalOptions.current.filter(o => o.label.indexOf(searchText) > -1 )
+      orginalOptions.current.filter((o) => o.label.indexOf(searchText) > -1)
     );
   };
 
   const onSelect = (data: string) => {
-    console.log('onSelect', data);
+    setSelectedUser(data);
+  };
+
+  const btnClickHandler = () => {
+    if (userList.find((item: UserType) => item.title === selectedUser)) return;
+    const newUser = { title: selectedUser, isDefault: false };
+    setUserList((prevSelectedUsers) => [newUser, ...prevSelectedUsers]);
   };
 
   return (
@@ -34,7 +48,10 @@ const UserAutoComplete: React.FC = () => {
         onSearch={onSearch}
         placeholder="جستجوی کاربر"
       />
-     <Button >افزودن</Button>
+      <Button onClick={btnClickHandler}>افزودن</Button>
+      {userList.length != 0 && (
+        <UserTable users={userList} handleFormChange={handleFormChange} />
+      )}
     </>
   );
 };
