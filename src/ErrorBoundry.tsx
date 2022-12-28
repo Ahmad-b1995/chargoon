@@ -23,6 +23,7 @@ export default class ErrorBoundry extends React.Component<Props, State> {
 
 	render() {
 		const { hasError } = this.state
-		return !hasError ? this.props.children : <h1>خطا. از devtools برای حل خطا کمک بگیرید</h1>;
+		// return !hasError ? this.props.children : <h1>خطا. از devtools برای حل خطا کمک بگیرید</h1>;
+		return  this.props.children 
 	}
 }

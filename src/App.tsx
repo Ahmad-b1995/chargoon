@@ -24,7 +24,8 @@ function App() {
   const handleContextMenuClick = (actionKey: any, node: NodeType) => {
     switch (actionKey) {
       case "ACTION1":
-        setShowEdit(true)
+        setShowEdit(true);
+        setSelectedItem(node);
         break;
       case "ACTION2":
         if (node.children.length)
@@ -73,14 +74,10 @@ function App() {
       });
   };
 
-  const handleUpdateTree = (nodes: NodeType[]) => {
-    console.log("kjkj");
-    console.log(nodes);
-
-  };
+  const handleUpdateTree = (nodes: NodeType[]) => {};
 
   const handleUpdateNode = (key: string, data: any) => {
-    console.log("kjkj");
+    console.log(key, data);
   };
 
   return (

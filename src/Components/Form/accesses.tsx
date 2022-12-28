@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Checkbox } from 'antd';
-import { getAccessList } from '../../transportLayer';
+import React, { useEffect, useState } from "react";
+import { Checkbox } from "antd";
+import { getAccessList } from "../../transportLayer";
+import type { CheckboxValueType } from "antd/es/checkbox/Group";
 
 interface Props {
-	initialValue?: any;
+  handleFormChange: (key: string, value: string | any[]) => void;
 }
 
-function Accesses({ }: Props) {
-	const [options, setOptions] = useState([]);
+function Accesses({ handleFormChange }: Props) {
+  const [options, setOptions] = useState([]);
 
-	const fetchAccessList = async () => {
-		const result = await getAccessList();
-		setOptions(result);
-	}
+  const fetchAccessList = async () => {
+    const result = await getAccessList();
+    setOptions(result);
+  };
 
-	useEffect(() => {
-		fetchAccessList()
-	}, [])
+  useEffect(() => {
+    fetchAccessList();
+  }, []);
 
+  function handleOnChange(checkedValues: CheckboxValueType[]) {
+    handleFormChange('accesses', checkedValues)
+  }
 
-	function handleOnChange() {
-
-	}
-
-	return (
-		<Checkbox.Group options={options as any} onChange={handleOnChange} />
-	);
+  return <Checkbox.Group options={options as any} onChange={handleOnChange} />;
 }
-export default Accesses
+export default Accesses;

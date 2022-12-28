@@ -7,7 +7,7 @@ import Accesses from "./accesses";
 import BasicInformation from "./basic-information";
 
 interface Props {
-  item: any;
+  item: NodeType;
   updateNode: (key: string, data: any) => void;
 }
 
@@ -19,12 +19,10 @@ function Form({ item, updateNode }: Props) {
       ...prevState,
       [key]: value,
     }));
-
-    console.log(node)
   };
 
   const handleFormSubmit = () => {
-    updateNode("key", {});
+    updateNode(item.key, node);
   };
 
   return (
@@ -39,13 +37,13 @@ function Form({ item, updateNode }: Props) {
           <Tabs.TabPane tab="دسترسی ها" key="item-2">
             <div className="form-content">
               <ErrorBoundry>
-                <Accesses initialValue={item?.data?.accesses} />
+                <Accesses handleFormChange={handleFormChange} />
               </ErrorBoundry>
             </div>
           </Tabs.TabPane>
         </Tabs>
       </div>
-      <ActionBar actions={[]} />
+      <ActionBar actions={{ title: "save", handler: handleFormSubmit }} />
     </div>
   );
 }

@@ -6,13 +6,13 @@ interface ActionType {
 }
 
 interface Props {
-  actions: ActionType[];
+  actions: ActionType;
 }
 
 function ActionBar({ actions }: Props) {
   return (
     <div className="actionbar">
-      <Button htmlType="submit">ذخیره</Button>
+      <Button onClick={actions.handler}>ذخیره</Button>
     </div>
   );
 }
