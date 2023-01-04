@@ -24,11 +24,11 @@ function App() {
   const handleContextMenuClick = (actionKey: any, node: NodeType) => {
     switch (actionKey) {
       case "ACTION1":
-        setShowEdit(true);
         setSelectedItem(node);
+        setShowEdit(true);
         break;
       case "ACTION2":
-        if (node.children.length)
+        if (node.children?.length)
           return alert("moving prohibited on nodes with children!");
         nodeToPaste = node;
         break;
@@ -57,7 +57,7 @@ function App() {
   };
 
   const filterTreeData = (node: NodeType) => {
-    if (node.children.length)
+    if (node.children?.length)
       return alert("deletion prohibited because of children!");
     const newTreeData = removeByKey(treeData, node.key);
     setTreeData(newTreeData);
@@ -77,8 +77,20 @@ function App() {
   const handleUpdateTree = (nodes: NodeType[]) => {};
 
   const handleUpdateNode = (key: string, data: any) => {
-    console.log(key, data);
+    FindChild(treeData, key, data);
   };
+
+  const FindChild = (nodeData: NodeType[], key: string, child: NodeType) => {
+    nodeData.forEach((node: NodeType) => {
+      if (node.key === key) {
+        node.children.push({ ...child, key: "87878787" });
+        return setTreeData((prevTree: NodeType[]) => [...prevTree]);
+      } else {
+        FindChild(node.children, key, child);
+      }
+    });
+  };
+
 
   return (
     <AppContext.Provider

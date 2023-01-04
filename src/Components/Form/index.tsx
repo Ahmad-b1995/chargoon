@@ -19,6 +19,7 @@ function Form({ item, updateNode }: Props) {
       ...prevState,
       [key]: value,
     }));
+    
   };
 
   const handleFormSubmit = () => {
