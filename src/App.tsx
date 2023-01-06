@@ -74,7 +74,9 @@ function App() {
       });
   };
 
-  const handleUpdateTree = (nodes: NodeType[]) => {};
+  const handleUpdateTree = (nodes: NodeType[]) => {
+    setTreeData(nodes)
+  };
 
   const handleUpdateNode = (key: string, data: any) => {
     FindChild(treeData, key, data);
@@ -84,13 +86,13 @@ function App() {
     nodeData.forEach((node: NodeType) => {
       if (node.key === key) {
         node.children.push({ ...child, key: "87878787" });
+        // node.children = [...node.children, {key: '33'}];
         return setTreeData((prevTree: NodeType[]) => [...prevTree]);
       } else {
         FindChild(node.children, key, child);
       }
     });
   };
-
 
   return (
     <AppContext.Provider

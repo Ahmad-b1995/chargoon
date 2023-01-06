@@ -1,6 +1,7 @@
-import React from 'react';
-interface Props { }
-function Modal({ }: Props) {
-	return;
+interface Props {
+  address: string;
 }
-export default Modal
+const Modal: React.FC<Props> = ({ address }) => {
+  return <>{address};</>;
+};
+export default Modal;
