@@ -97,8 +97,10 @@ function App() {
         node.children.unshift({
           ...child,
           hierarchy: [key, child.key],
+          children: [],
+          parentKey: key,
+          data: []
         });
-
         return setTreeData((prevTree: NodeType[]) => [...prevTree]);
       } else {
         FindChild(node.children, key, child);
