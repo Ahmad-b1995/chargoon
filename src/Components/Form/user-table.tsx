@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { ChangeEvent, useReducer } from "react";
 import { UserType } from "../../types";
 
 interface Props {
@@ -7,11 +7,26 @@ interface Props {
 }
 
 const UserTable: React.FC<Props> = ({ users, handleFormChange }) => {
-  const checkboxChangeHandler = (title: string, checked: boolean) => {
+  const checkboxChangeHandler = (
+    e: ChangeEvent<HTMLInputElement>,
+    title: string,
+    checked: boolean
+  ) => {
     users.map((item: UserType) => (item.isDefault = false));
     const index = users.findIndex((item: UserType) => item.title === title);
     users[index].isDefault = checked;
-    handleFormChange('users',users);
+    handleFormChange("users", users);
+  };
+
+  const disableCheckbox = (title: string) => {
+    const index = users.findIndex((item: UserType) => item.isDefault === true);
+    if (index !== -1) {
+      if (title === users[index].title) {
+        return false;
+      } else return true;
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -37,8 +52,9 @@ const UserTable: React.FC<Props> = ({ users, handleFormChange }) => {
               >
                 <input
                   type="checkbox"
+                  disabled={disableCheckbox(item.title)}
                   onChange={(e) =>
-                    checkboxChangeHandler(item.title, e.target.checked)
+                    checkboxChangeHandler(e, item.title, e.target.checked)
                   }
                 />
               </td>

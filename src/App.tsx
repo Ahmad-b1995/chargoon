@@ -87,6 +87,7 @@ function App() {
   };
 
   const handleUpdateNode = (key: string, data: any) => {
+    setShowEdit(false);
     FindChild(treeData, key, data);
   };
 
