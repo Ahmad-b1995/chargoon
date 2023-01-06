@@ -41,19 +41,27 @@ function App() {
     }
   };
 
+  let newTreeData: NodeType[] = [];
   const pasteNode = (node: NodeType) => {
     if (!nodeToPaste) return alert("no node to paste!");
     nodeToPaste.parentKey = node.key;
     nodeToPaste.hierarchy = [node.key, nodeToPaste.key];
-    const newTreeData = removeByKey(treeData, nodeToPaste.key);
+    newTreeData = removeByKey(treeData, nodeToPaste.key);
     const nodeIndex = treeData.findIndex(
       (item: NodeType) => item.key === node.key
     );
-    newTreeData[nodeIndex].children = [
-      nodeToPaste,
-      ...newTreeData[nodeIndex].children,
-    ];
-    setTreeData(newTreeData);
+    addByKey(newTreeData, nodeToPaste, node.key);
+  };
+
+  const addByKey = (treeData: NodeType[], node: NodeType, key: string) => {
+    treeData.forEach((item: NodeType) => {
+      if (item.key === key) {
+        item.children.unshift(node);
+        return setTreeData(newTreeData)
+      } else {
+        addByKey(item.children, node, key);
+      }
+    });
   };
 
   const filterTreeData = (node: NodeType) => {
@@ -75,7 +83,7 @@ function App() {
   };
 
   const handleUpdateTree = (nodes: NodeType[]) => {
-    setTreeData(nodes)
+    setTreeData(nodes);
   };
 
   const handleUpdateNode = (key: string, data: any) => {
