@@ -18,7 +18,8 @@ function SearchResult({ items }: Props) {
     });
     return (
       <div>
-        <p>{path[title] && path[title].join(" >> ")}</p>
+        {/* <p>{path[title] && path[title].join(" >> ")}</p> */}
+        <p>{path[title] && path[title].map((item, index) => <div style={{paddingRight: `${index}rem`}}>{item}</div>)}</p>
       </div>
     );
   };
