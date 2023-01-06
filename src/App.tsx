@@ -57,7 +57,7 @@ function App() {
     treeData.forEach((item: NodeType) => {
       if (item.key === key) {
         item.children.unshift(node);
-        return setTreeData(newTreeData)
+        return setTreeData(newTreeData);
       } else {
         addByKey(item.children, node, key);
       }
@@ -93,8 +93,13 @@ function App() {
   const FindChild = (nodeData: NodeType[], key: string, child: NodeType) => {
     nodeData.forEach((node: NodeType) => {
       if (node.key === key) {
-        node.children.push({ ...child, key: "87878787" });
-        // node.children = [...node.children, {key: '33'}];
+        let newKey = Math.floor(Math.random() * 1000);
+        node.children.unshift({
+          ...child,
+          key: newKey.toString(),
+          hierarchy: [key, newKey.toString()],
+        });
+
         return setTreeData((prevTree: NodeType[]) => [...prevTree]);
       } else {
         FindChild(node.children, key, child);
