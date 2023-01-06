@@ -11,8 +11,7 @@ interface Props {
 
 function SearchResult({ items }: Props) {
   const { treeData } = useContext(AppContext);
-  var path: { [key: string]: string[] } = {};
-
+  let path: { [key: string]: string[] } = {};
   const calculatePath = (hierarchy: string[], title: string) => {
     hierarchy.forEach((item: string) => {
       findTitleByKey(treeData, item, title);

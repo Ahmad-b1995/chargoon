@@ -3,6 +3,8 @@ import type { DataNode } from "antd/es/tree";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import AppContext from "../../appContext";
 import { NodeType } from "../../types";
+import ArrowDownIcon from "../SvgIcons/arrow-down";
+import ArrowUpIcon from "../SvgIcons/arrow-up";
 import Node from "./node";
 import SearchResult from "./searchResult";
 
@@ -39,7 +41,6 @@ const ExtendedTree: React.FC<Props> = ({ handleContextMenuClick }) => {
     });
   };
 
-
   const handlePressEnter = () => {
     setSearchResultVisible(true);
   };
@@ -63,7 +64,15 @@ const ExtendedTree: React.FC<Props> = ({ handleContextMenuClick }) => {
         treeData={treeData}
         titleRender={titleRenderer}
       />
-      {searchResultVisible && <SearchResult items={filteredData}  />}
+      <div style={{ marginTop: "auto" }}>
+        <div
+          className="arrow-container"
+          onClick={() => setSearchResultVisible((visibility) => !visibility)}
+        >
+          {searchResultVisible ? <ArrowDownIcon /> : <ArrowUpIcon />}
+        </div>
+        {searchResultVisible && <SearchResult items={filteredData} />}
+      </div>
     </div>
   );
 };
