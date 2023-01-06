@@ -93,11 +93,11 @@ function App() {
   const FindChild = (nodeData: NodeType[], key: string, child: NodeType) => {
     nodeData.forEach((node: NodeType) => {
       if (node.key === key) {
-        let newKey = Math.floor(Math.random() * 1000);
+        // let newKey = Math.floor(Math.random() * 1000);
         node.children.unshift({
           ...child,
-          key: newKey.toString(),
-          hierarchy: [key, newKey.toString()],
+          // key: newKey.toString(),
+          hierarchy: [key, child.key],
         });
 
         return setTreeData((prevTree: NodeType[]) => [...prevTree]);

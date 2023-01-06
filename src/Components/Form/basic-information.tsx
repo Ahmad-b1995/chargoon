@@ -15,7 +15,7 @@ const BasicInformation: React.FC<Props> = ({ handleFormChange }) => {
         <Input onChange={(e) => handleFormChange("title", e.target.value)} />
       </Form.Item>
       <Form.Item name="code" label="کد" labelCol={{ span: 2 }}>
-        <Input onChange={(e) => handleFormChange("code", e.target.value)} />
+        <Input onChange={(e) => handleFormChange("key", e.target.value)} />
       </Form.Item>
       <Form.Item name="users" label="کاربران" labelCol={{ span: 2 }}>
         <UserAutoComplete handleFormChange={handleFormChange} />
