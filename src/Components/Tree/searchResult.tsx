@@ -1,5 +1,4 @@
 import { NodeType } from "../../types";
-import Modal from "../Modal";
 import { Popover } from "antd";
 import { useContext } from "react";
 import AppContext from "../../appContext";
@@ -18,8 +17,12 @@ function SearchResult({ items }: Props) {
     });
     return (
       <div>
-        {/* <p>{path[title] && path[title].join(" >> ")}</p> */}
-        <p>{path[title] && path[title].map((item, index) => <div style={{paddingRight: `${index}rem`}}>{item}</div>)}</p>
+        {path[title] &&
+          path[title].map((item, index) => (
+            <div key={item} style={{ paddingRight: `${index}rem` }}>
+              {item}
+            </div>
+          ))}
       </div>
     );
   };
