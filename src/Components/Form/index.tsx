@@ -8,12 +8,11 @@ import BasicInformation from "./basic-information";
 
 interface Props {
   item: NodeType;
-  updateNode: (key: string, data: any) => void;
+  updateNode: (key: string | string[], data: any) => void;
 }
 
 function Form({ item, updateNode }: Props) {
-  const [node, setNode] = useState({
-  });
+  const [node, setNode] = useState({});
 
   const handleFormChange = (key: string, value: string | string[]) => {
     setNode((prevState) => ({
@@ -23,10 +22,8 @@ function Form({ item, updateNode }: Props) {
   };
 
   const handleFormSubmit = () => {
-    console.log(item.key);
-
     if ("title" in node && "key" in node) {
-      updateNode(item.key, node);
+      updateNode(item.hierarchy || item.key, node);
     } else {
       alert("title & key cannot be empty");
     }

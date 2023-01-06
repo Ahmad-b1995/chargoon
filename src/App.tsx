@@ -66,7 +66,7 @@ function App() {
 
   const filterTreeData = (node: NodeType) => {
     if (node.children?.length)
-      return alert("deletion prohibited because of children!");
+      return alert("deletion prohibited for nodes with children!");
     if (!window.confirm("Are you sure to delete item?")) return;
     const newTreeData = removeByKey(treeData, node.key);
     setTreeData(newTreeData);
@@ -87,24 +87,36 @@ function App() {
     setTreeData(nodes);
   };
 
-  const handleUpdateNode = (key: string, data: any) => {
+  const handleUpdateNode = (keyOrHierarchy: string | string[], data: any) => {
     setShowEdit(false);
-    FindChild(treeData, key, data);
+    findAndAddToTree(treeData, keyOrHierarchy, data);
   };
 
-  const FindChild = (nodeData: NodeType[], key: string, child: NodeType) => {
+  const findAndAddToTree = (
+    nodeData: NodeType[],
+    keyOrHierarchy: string | string[],
+    child: NodeType
+  ) => {
+    let key =
+      typeof keyOrHierarchy === "string"
+        ? keyOrHierarchy
+        : keyOrHierarchy[keyOrHierarchy.length - 1];
+
     nodeData.forEach((node: NodeType) => {
       if (node.key === key) {
         node.children.unshift({
           ...child,
-          hierarchy: [key, child.key],
+          hierarchy: [
+            ...(typeof keyOrHierarchy === "string" ? [key] : keyOrHierarchy),
+            child.key,
+          ],
           children: [],
           parentKey: key,
           data: [],
         });
         return setTreeData((prevTree: NodeType[]) => [...prevTree]);
       } else {
-        FindChild(node.children, key, child);
+        findAndAddToTree(node.children, keyOrHierarchy, child);
       }
     });
   };
