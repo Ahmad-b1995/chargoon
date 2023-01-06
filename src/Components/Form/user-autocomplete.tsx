@@ -23,6 +23,10 @@ const UserAutoComplete: React.FC<Props> = ({ handleFormChange }) => {
     });
   }, []);
 
+  useEffect(() => {
+    handleFormChange("users", userList);
+  }, [userList]);
+
   const onSearch = (searchText: string) => {
     setOptions(
       orginalOptions.current.filter((o) => o.label.indexOf(searchText) > -1)

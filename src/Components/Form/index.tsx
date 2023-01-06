@@ -15,6 +15,8 @@ function Form({ item, updateNode }: Props) {
   const [node, setNode] = useState({});
 
   const handleFormChange = (key: string, value: string | string[]) => {
+    console.log(key, value);
+    
     setNode((prevState) => ({
       ...prevState,
       [key]: value,
