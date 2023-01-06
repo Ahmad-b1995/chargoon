@@ -67,6 +67,7 @@ function App() {
   const filterTreeData = (node: NodeType) => {
     if (node.children?.length)
       return alert("deletion prohibited because of children!");
+    if (!window.confirm("Are you sure to delete item?")) return;
     const newTreeData = removeByKey(treeData, node.key);
     setTreeData(newTreeData);
   };
@@ -99,7 +100,7 @@ function App() {
           hierarchy: [key, child.key],
           children: [],
           parentKey: key,
-          data: []
+          data: [],
         });
         return setTreeData((prevTree: NodeType[]) => [...prevTree]);
       } else {
