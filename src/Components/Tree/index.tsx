@@ -56,6 +56,8 @@ const ExtendedTree: React.FC<Props> = ({ handleContextMenuClick }) => {
         placeholder="جستجو"
         onChange={handleSearchInputChange}
         onPressEnter={handlePressEnter}
+        onPaste={handlePressEnter}
+        onSearch={handlePressEnter}
       />
       <Tree
         onExpand={onExpand}

@@ -64,7 +64,7 @@ function SearchResult({ items }: Props) {
             placement="left"
           >
             {item.hierarchy.length > 0 && (
-              <div style={{ width: "20px" }}>
+              <div style={{ width: "20px", cursor: 'pointer' }}>
                 <OrgchartIcon />
               </div>
             )}
