@@ -12,7 +12,16 @@ interface Props {
 }
 
 function Form({ item, updateNode }: Props) {
-  const [node, setNode] = useState({});
+  const [node, setNode] = useState<NodeType>({
+    title: "",
+    users: [],
+    key: "",
+    children: [],
+    parentKey: "",
+    data: [],
+    hierarchy: [],
+    accesses: [],
+  });
 
   const handleFormChange = (key: string, value: string | string[]) => {
     setNode((prevState) => ({
@@ -22,10 +31,10 @@ function Form({ item, updateNode }: Props) {
   };
 
   const handleFormSubmit = () => {
-    if ("title" in node && "key" in node) {
+    if ("title" in node && "key" in node && node.key.length > 0) {
       updateNode(item.hierarchy || item.key, node);
     } else {
-      alert("title & key cannot be empty");
+      alert("title & key cannot be empty.\nkey must be at least one character long.");
     }
   };
 
