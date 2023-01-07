@@ -29,7 +29,7 @@ function App() {
         break;
       case "ACTION2":
         if (node.children?.length)
-          return alert("moving prohibited on nodes with children!");
+          return alert("moving's prohibited on nodes with children!");
         nodeToPaste = node;
         break;
       case "ACTION3":
