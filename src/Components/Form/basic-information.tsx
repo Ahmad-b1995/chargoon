@@ -1,4 +1,5 @@
 import { Form, Input } from "antd";
+import { NamePath } from "antd/lib/form/interface";
 import { useEffect, useState } from "react";
 import { NodeType } from "../../types";
 import UserAutoComplete from "./user-autocomplete";
@@ -24,18 +25,26 @@ const BasicInformation: React.FC<Props> = ({
   return (
     <Form
       form={form}
-      // initialValues={initialValue}
-      initialValues={{
-        ["title"]: initialValue.title,
-        ["key"]: initialValue.key,
-      }}
-      
+      fields={[
+        {
+          name: "title",
+          value: initialValue?.title,
+        },
+        {
+          name: "key",
+          value: initialValue?.key,
+        },
+      ]}
+      initialValues={initialValue}
+      onFieldsChange={(field) =>
+        handleFormChange(field[0].name.toString(), field[0].value.toString())
+      }
     >
       <Form.Item name="title" label="عنوان" labelCol={{ span: 2 }}>
-        <Input onChange={(e) => handleFormChange("title", e.target.value)} />
+        <Input  />
       </Form.Item>
       <Form.Item name="key" label="کد" labelCol={{ span: 2 }}>
-        <Input onChange={(e) => handleFormChange("key", e.target.value)} />
+        <Input />
       </Form.Item>
       <Form.Item name="users" label="کاربران" labelCol={{ span: 2 }}>
         <UserAutoComplete

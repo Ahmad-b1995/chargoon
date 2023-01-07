@@ -13,7 +13,7 @@ interface Props {
 }
 
 function Form({ item, type, updateNode }: Props) {
-  const [node, setNode] = useState<NodeType>({
+  let node: NodeType = {
     title: "",
     users: [],
     key: "",
@@ -22,13 +22,10 @@ function Form({ item, type, updateNode }: Props) {
     data: [],
     hierarchy: [],
     accesses: [],
-  });
+  };
 
   const handleFormChange = (key: string, value: string | string[]) => {
-    setNode((prevState: NodeType) => ({
-      ...prevState,
-      [key]: value,
-    }));
+    node[key] = value;
   };
 
   const handleSave = (title: string) => {
