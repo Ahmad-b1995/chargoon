@@ -7,7 +7,11 @@ interface Props {
   onDeleteUser: (title: string) => void;
 }
 
-const UserTable: React.FC<Props> = ({ users, handleFormChange ,onDeleteUser}) => {
+const UserTable: React.FC<Props> = ({
+  users,
+  handleFormChange,
+  onDeleteUser,
+}) => {
   const checkboxChangeHandler = (title: string, checked: boolean) => {
     users.map((item: UserType) => (item.isDefault = false));
     const index = users.findIndex((item: UserType) => item.title === title);
@@ -40,7 +44,11 @@ const UserTable: React.FC<Props> = ({ users, handleFormChange ,onDeleteUser}) =>
           {users.map((item: UserType) => (
             <tr key={item.title}>
               <td
-                style={{ border: "solid black 1px", padding: ".2rem .5rem " }}
+                style={{
+                  border: "solid black 1px",
+                  padding: ".2rem .5rem ",
+                  cursor: "pointer",
+                }}
                 onClick={() => onDeleteUser(item.title)}
               >
                 حذف
@@ -51,6 +59,7 @@ const UserTable: React.FC<Props> = ({ users, handleFormChange ,onDeleteUser}) =>
                 <input
                   type="checkbox"
                   disabled={disableCheckbox(item.title)}
+                  checked={item.isDefault}
                   onChange={(e) =>
                     checkboxChangeHandler(item.title, e.target.checked)
                   }

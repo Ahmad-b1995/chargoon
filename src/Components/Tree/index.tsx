@@ -70,7 +70,7 @@ const ExtendedTree: React.FC<Props> = ({
         autoExpandParent={autoExpandParent}
         treeData={treeData}
         titleRender={titleRenderer}
-        onSelect={(e: Key[]) => handleNodeEdit(e[0].toString())}
+        onSelect={(e: Key[]) => handleNodeEdit(e[0]?.toString())}
       />
       <div style={{ marginTop: "auto" }}>
         <div
