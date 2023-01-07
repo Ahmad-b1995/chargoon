@@ -32,14 +32,17 @@ function App() {
         setShowEdit(true);
         break;
       case "ACTION2":
+        e.stopPropagation();
         if (node.children?.length)
           return alert("moving's prohibited on nodes with children!");
         nodeToPaste = node;
         break;
       case "ACTION3":
+        e.stopPropagation();
         pasteNode(node);
         break;
       case "ACTION4":
+        e.stopPropagation();
         filterTreeData(node);
         break;
     }
