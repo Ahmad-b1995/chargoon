@@ -1,17 +1,18 @@
-import { Tabs } from "antd";
-import { useState } from "react";
-import ErrorBoundry from "../../ErrorBoundry";
+import { Input, Tabs } from "antd";
+import React, { useState } from "react";
 import { NodeType } from "../../types";
 import ActionBar from "../ActionBar";
 import Accesses from "./accesses";
 import BasicInformation from "./basic-information";
+import UsersList from "./user-autocomplete";
 
 interface Props {
   item: NodeType;
-  updateNode: (key: string | string[], data: any) => void;
+  type: string;
+  updateNode: (key: string | string[], type: string, data: any) => void;
 }
 
-function Form({ item, updateNode }: Props) {
+function Form({ item, type, updateNode }: Props) {
   const [node, setNode] = useState<NodeType>({
     title: "",
     users: [],
@@ -24,17 +25,23 @@ function Form({ item, updateNode }: Props) {
   });
 
   const handleFormChange = (key: string, value: string | string[]) => {
-    setNode((prevState) => ({
+    setNode((prevState: NodeType) => ({
       ...prevState,
       [key]: value,
     }));
   };
 
-  const handleFormSubmit = () => {
+  const handleSave = (title: string) => {
     if ("title" in node && "key" in node && node.key.length > 0) {
-      updateNode(item.hierarchy?.length ? item.hierarchy : item.key, node);
+      updateNode(
+        item.hierarchy?.length ? item.hierarchy : item.key,
+        type,
+        node
+      );
     } else {
-      alert("title & key cannot be empty.\nkey must be at least one character long.");
+      alert(
+        "title & key cannot be empty.\nkey must be at least one character long."
+      );
     }
   };
 
@@ -44,17 +51,23 @@ function Form({ item, updateNode }: Props) {
         <Tabs>
           <Tabs.TabPane tab="اطلاعات اصلی" key="item-1">
             <div className="form-content">
-              <BasicInformation handleFormChange={handleFormChange} />
+              <BasicInformation
+                initialValue={type === "edit" ? item : null}
+                handleFormChange={handleFormChange}
+              />
             </div>
           </Tabs.TabPane>
           <Tabs.TabPane tab="دسترسی ها" key="item-2">
             <div className="form-content">
-              <Accesses handleFormChange={handleFormChange} />
+              <Accesses
+                initialValue={item}
+                handleFormChange={handleFormChange}
+              />
             </div>
           </Tabs.TabPane>
         </Tabs>
       </div>
-      <ActionBar actions={{ title: "save", handler: handleFormSubmit }} />
+      <ActionBar actions={{ title: type, handler: handleSave }} />
     </div>
   );
 }

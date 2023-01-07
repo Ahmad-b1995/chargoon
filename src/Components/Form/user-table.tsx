@@ -1,9 +1,10 @@
-import { ChangeEvent, useReducer } from "react";
-import { UserType } from "../../types";
+import { ChangeEvent, useEffect, useReducer, useState } from "react";
+import { NodeType, UserType } from "../../types";
 
 interface Props {
   users: UserType[];
   handleFormChange: (key: string, value: string | any[]) => void;
+  initialValue: NodeType;
 }
 
 const UserTable: React.FC<Props> = ({ users, handleFormChange }) => {

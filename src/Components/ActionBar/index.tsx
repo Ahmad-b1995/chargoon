@@ -2,7 +2,7 @@ import { Button } from "antd";
 import React from "react";
 interface ActionType {
   title: string;
-  handler: () => void;
+  handler: (title: string) => void;
 }
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 function ActionBar({ actions }: Props) {
   return (
     <div className="actionbar">
-      <Button onClick={actions.handler}>ذخیره</Button>
+      <Button onClick={() => actions.handler(actions.title)}>ذخیره</Button>
     </div>
   );
 }

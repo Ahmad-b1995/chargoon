@@ -1,14 +1,18 @@
 import { AutoComplete, Button } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { getUsers } from "../../transportLayer";
-import { UserType } from "../../types";
+import { NodeType, UserType } from "../../types";
 import UserTable from "./user-table";
 
 interface Props {
   handleFormChange: (key: string, value: string | any[]) => void;
+  initialValue: NodeType;
 }
 
-const UserAutoComplete: React.FC<Props> = ({ handleFormChange }) => {
+const UserAutoComplete: React.FC<Props> = ({
+  handleFormChange,
+  initialValue,
+}) => {
   const orginalOptions = useRef([]);
   const [options, setOptions] = useState<{ label: string; value: string }[]>(
     []
@@ -21,6 +25,7 @@ const UserAutoComplete: React.FC<Props> = ({ handleFormChange }) => {
       orginalOptions.current = users;
       setOptions(users);
     });
+    if (initialValue?.users) setUserList(initialValue.users);
   }, []);
 
   useEffect(() => {
@@ -54,7 +59,11 @@ const UserAutoComplete: React.FC<Props> = ({ handleFormChange }) => {
       />
       <Button onClick={btnClickHandler}>افزودن</Button>
       {userList.length != 0 && (
-        <UserTable users={userList} handleFormChange={handleFormChange} />
+        <UserTable
+          users={userList}
+          handleFormChange={handleFormChange}
+          initialValue={initialValue}
+        />
       )}
     </>
   );

@@ -1,5 +1,6 @@
 import { Input, Tree } from "antd";
 import type { DataNode } from "antd/es/tree";
+import { Key } from "antd/lib/table/interface";
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import AppContext from "../../appContext";
 import { NodeType } from "../../types";
@@ -11,10 +12,14 @@ import SearchResult from "./searchResult";
 const { Search } = Input;
 
 interface Props {
-  handleContextMenuClick: (key: string, node: NodeType) => void;
+  handleContextMenuClick: (key: string, node: NodeType, event: Event) => void;
+  handleNodeEdit: (key: string) => void;
 }
 
-const ExtendedTree: React.FC<Props> = ({ handleContextMenuClick }) => {
+const ExtendedTree: React.FC<Props> = ({
+  handleContextMenuClick,
+  handleNodeEdit,
+}) => {
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
   const [autoExpandParent, setAutoExpandParent] = useState(true);
   const [searchResultVisible, setSearchResultVisible] = useState(false);
@@ -65,7 +70,7 @@ const ExtendedTree: React.FC<Props> = ({ handleContextMenuClick }) => {
         autoExpandParent={autoExpandParent}
         treeData={treeData}
         titleRender={titleRenderer}
-        onSelect={(e) => console.log(e)}
+        onSelect={(e: Key[]) => handleNodeEdit(e[0].toString())}
       />
       <div style={{ marginTop: "auto" }}>
         <div

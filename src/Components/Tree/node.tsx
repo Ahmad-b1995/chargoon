@@ -8,7 +8,7 @@ import {
 
 interface Props {
   node: NodeType;
-  handleContextMenuClick: (key: string, node: NodeType) => void;
+  handleContextMenuClick: (key: string, node: NodeType, event: Event) => void;
 }
 
 function Node({ node, handleContextMenuClick }: Props) {
@@ -20,19 +20,19 @@ function Node({ node, handleContextMenuClick }: Props) {
 
       <ContextMenuEx id={node.key}>
         <ContextMenuItemEx
-          handleClick={() => handleContextMenuClick("ACTION1", node)}
+          handleClick={(e: Event) => handleContextMenuClick("ACTION1", node, e)}
           title={"افزودن زیرشاخه"}
         />
         <ContextMenuItemEx
-          handleClick={() => handleContextMenuClick("ACTION2", node)}
+          handleClick={(e: Event) => handleContextMenuClick("ACTION2", node, e)}
           title={"برش"}
         />
         <ContextMenuItemEx
-          handleClick={() => handleContextMenuClick("ACTION3", node)}
+          handleClick={(e: Event) => handleContextMenuClick("ACTION3", node, e)}
           title={"چسباندن"}
         />
         <ContextMenuItemEx
-          handleClick={() => handleContextMenuClick("ACTION4", node)}
+          handleClick={(e: Event) => handleContextMenuClick("ACTION4", node, e)}
           title={"حذف"}
         />
       </ContextMenuEx>
