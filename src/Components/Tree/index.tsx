@@ -65,6 +65,7 @@ const ExtendedTree: React.FC<Props> = ({ handleContextMenuClick }) => {
         autoExpandParent={autoExpandParent}
         treeData={treeData}
         titleRender={titleRenderer}
+        onSelect={(e) => console.log(e)}
       />
       <div style={{ marginTop: "auto" }}>
         <div

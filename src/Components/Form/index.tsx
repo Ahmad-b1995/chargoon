@@ -32,7 +32,7 @@ function Form({ item, updateNode }: Props) {
 
   const handleFormSubmit = () => {
     if ("title" in node && "key" in node && node.key.length > 0) {
-      updateNode(item.hierarchy || item.key, node);
+      updateNode(item.hierarchy?.length ? item.hierarchy : item.key, node);
     } else {
       alert("title & key cannot be empty.\nkey must be at least one character long.");
     }
