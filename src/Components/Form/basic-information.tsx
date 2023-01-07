@@ -24,13 +24,16 @@ const BasicInformation: React.FC<Props> = ({
   return (
     <Form
       form={form}
-      // initialValues={initialValue}
-      initialValues={{
-        ["title"]: initialValue.title,
-        ["key"]: initialValue.key,
-      }}
-
-      
+      fields={[
+        {
+          name: 'title',
+          value: initialValue?.title,
+        },
+        {
+          name: 'key',
+          value: initialValue?.key,
+        },
+      ]}
     >
       <Form.Item name="title" label="عنوان" labelCol={{ span: 2 }}>
         <Input onChange={(e) => handleFormChange("title", e.target.value)} />
