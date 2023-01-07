@@ -48,6 +48,15 @@ const UserAutoComplete: React.FC<Props> = ({
     setUserList((prevSelectedUsers) => [newUser, ...prevSelectedUsers]);
   };
 
+  const handleUserDelete = (title: string) => {
+    const index = userList.findIndex((item: UserType) => {
+      return item.title === title;
+    });
+    setUserList((prevUserList) =>
+      prevUserList.filter((item) => item.title !== title)
+    );
+  };
+
   return (
     <>
       <AutoComplete
@@ -62,7 +71,7 @@ const UserAutoComplete: React.FC<Props> = ({
         <UserTable
           users={userList}
           handleFormChange={handleFormChange}
-          initialValue={initialValue}
+          onDeleteUser={handleUserDelete}
         />
       )}
     </>
