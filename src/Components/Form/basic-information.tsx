@@ -17,6 +17,7 @@ const BasicInformation: React.FC<Props> = ({
 
   useEffect(() => {
     if (initialValue) {
+      
       handleFormChange("title", initialValue.title);
       handleFormChange("key", initialValue.key);
     }
@@ -25,26 +26,31 @@ const BasicInformation: React.FC<Props> = ({
   return (
     <Form
       form={form}
-      fields={[
-        {
-          name: "title",
-          value: initialValue?.title,
-        },
-        {
-          name: "key",
-          value: initialValue?.key,
-        },
-      ]}
-      initialValues={initialValue}
-      onFieldsChange={(field) =>
-        handleFormChange(field[0].name.toString(), field[0].value.toString())
-      }
+      // fields={[
+      //   {
+      //     name: "title",
+      //     value: initialValue?.title,
+      //   },
+      //   {
+      //     name: "key",
+      //     value: initialValue?.key,
+      //   },
+      // ]}
+      // initialValues={initialValue}
+      // onFieldsChange={(field) =>
+      //   handleFormChange(field[0].name.toString(), field[0].value.toString())
+      // }
+      initialValues={{
+        ["title"]: initialValue?.title,
+        ["key"]: initialValue?.key,
+      }}
+
     >
       <Form.Item name="title" label="عنوان" labelCol={{ span: 2 }}>
-        <Input  />
+        <Input onChange={(e) => handleFormChange("title", e.target.value)} />
       </Form.Item>
       <Form.Item name="key" label="کد" labelCol={{ span: 2 }}>
-        <Input />
+        <Input onChange={(e) => handleFormChange("key", e.target.value)} />
       </Form.Item>
       <Form.Item name="users" label="کاربران" labelCol={{ span: 2 }}>
         <UserAutoComplete

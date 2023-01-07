@@ -13,18 +13,34 @@ interface Props {
 }
 
 function Form({ item, type, updateNode }: Props) {
-  let node: NodeType = {
+  // let node: NodeType = {
+  //   title: "",
+  //   users: [],
+  //   key: "",
+  //   children: [],
+  //   parentKey: "",
+  //   data: [],
+  //   hierarchy: [],
+  //   accesses: [],
+  // };
+
+  // const handleFormChange = (key: string, value: string | string[]) => {
+  //   node[key] = value;
+  // };
+  const [node, setNode] = useState<NodeType>({
     title: "",
     users: [],
     key: "",
-    children: [],
-    parentKey: "",
     data: [],
     hierarchy: [],
     accesses: [],
-  };
+  });
 
   const handleFormChange = (key: string, value: string | string[]) => {
+    setNode((prevState: NodeType) => ({
+      ...prevState,
+      [key]: value,
+    }));
     node[key] = value;
   };
 
