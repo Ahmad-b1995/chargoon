@@ -15,17 +15,25 @@ const BasicInformation: React.FC<Props> = ({
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if(initialValue){
-      handleFormChange('title', initialValue.title)
-      handleFormChange('key', initialValue.key)
+    if (initialValue) {
+      handleFormChange("title", initialValue.title);
+      handleFormChange("key", initialValue.key);
     }
-  }, [])
-  
+  }, []);
 
   return (
     <Form
       form={form}
-      initialValues={initialValue}
+      fields={[
+        {
+          name: 'title',
+          value: initialValue.title,
+        },
+        {
+          name: 'key',
+          value: initialValue.key,
+        },
+      ]}
     >
       <Form.Item name="title" label="عنوان" labelCol={{ span: 2 }}>
         <Input onChange={(e) => handleFormChange("title", e.target.value)} />
